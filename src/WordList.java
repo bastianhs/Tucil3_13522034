@@ -19,7 +19,11 @@ class WordList {
         reader.close();
     }
 
-    static int numOfCharDifference(String word1, String word2) {
+    static int numOfCharDifference(String word1, String word2) throws IllegalArgumentException {
+        if (word1.length() != word2.length()) {
+            throw new IllegalArgumentException("Both words must have the same length");
+        }
+
         int count = 0;
         for (int i = 0; i < word1.length(); ++i) {
             if (word1.charAt(i) != word2.charAt(i)) {
@@ -30,7 +34,11 @@ class WordList {
         return count;
     }
 
-    static boolean isWordsDifferBy1Char(String word1, String word2) {
+    static boolean isWordsDifferBy1Char(String word1, String word2) throws IllegalArgumentException {
+        if (word1.length() != word2.length()) {
+            throw new IllegalArgumentException("Both words must have the same length");
+        }
+
         int count = 0;
         int i = 0;
         while (i < word1.length() && count <= 1) {

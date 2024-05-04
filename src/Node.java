@@ -61,7 +61,9 @@ class NodeAStar extends Node {
 
     @Override
     public int compareTo(Node otherNode) {
-        int comparisonResult = Integer.compare(diffFromCurrentToEndWord, ((NodeAStar) otherNode).diffFromCurrentToEndWord) + Integer.compare(previousWords.size(), otherNode.previousWords.size());
+        int thisNodeCost = previousWords.size() + diffFromCurrentToEndWord;
+        int otherNodeCost = otherNode.previousWords.size() + ((NodeAStar) otherNode).diffFromCurrentToEndWord;
+        int comparisonResult = Integer.compare(thisNodeCost, otherNodeCost);
         if (comparisonResult != 0) {
             return comparisonResult;
         }

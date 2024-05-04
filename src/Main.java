@@ -8,7 +8,7 @@ public class Main {
 
             Scanner scanner = new Scanner(System.in);
 
-            System.out.print("Enter dictionary file: ");
+            System.out.print("Enter dictionary path (from test folder): ");
             String pathFromTest = scanner.nextLine();
 
             WordList wordList = new WordList(dictionaryFolder + "/" + pathFromTest);
@@ -35,8 +35,10 @@ public class Main {
             System.out.println("1. Uniform Cost Search");
             System.out.println("2. Greedy Best First Search");
             System.out.println("3. A*");
-            System.out.print("Enter your choice: ");
+            System.out.print("Enter your choice (1-3): ");
             String choice = scanner.nextLine();
+
+            scanner.close();
 
             List<String> result;
             int numOfNodesVisited;
@@ -72,7 +74,8 @@ public class Main {
             System.out.println("Time taken: " + (endTime - startTime) / 1000000 + " ms");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }
