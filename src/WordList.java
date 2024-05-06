@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +11,9 @@ class WordList {
     private final List<String> words;
     private Map<String, List<String>> wordToWordsDifferBy1Char;
 
-    WordList(String path) throws IOException {
+    WordList(File wordsFile) throws IOException {
         words = new ArrayList<>();
-        BufferedReader reader = new BufferedReader(new FileReader(path));
+        BufferedReader reader = new BufferedReader(new FileReader(wordsFile));
         String line;
         while ((line = reader.readLine()) != null) {
             words.add(line.toLowerCase());

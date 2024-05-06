@@ -16,19 +16,8 @@ public class AStar extends Searching {
                 break;
             }
 
-            // print the currentExpandNode
-            // System.out.println("Expand Node");
-            // System.out.print("Current word: ");
-            // System.out.println(currentExpandNode.getCurrentWord());
-            // System.out.print("Previous words: ");
-            // System.out.println(currentExpandNode.getPreviousWords());
-
             List<String> wordsDifferBy1Char = wordList.getWordsDifferBy1Char(currentExpandNode.getCurrentWord());
             wordsDifferBy1Char = wordsDifferBy1Char.stream().filter(this::isWordNotVisited).toList();
-
-            // print the wordsDifferBy1Char
-            // System.out.print("Words differ by 1 char: ");
-            // System.out.println(wordsDifferBy1Char);
 
             for (String eachWord: wordsDifferBy1Char) {
                 List<String> newPreviousWords = new ArrayList<>(currentExpandNode.getPreviousWords());
@@ -36,15 +25,6 @@ public class AStar extends Searching {
                 NodeAStar newNode = new NodeAStar(eachWord, newPreviousWords, endWord);
                 lifeNodes.add(newNode);
             }
-
-            // print the lifeNodes
-            // System.out.print("Life nodes: ");
-            // for (Node eachNode: lifeNodes) {
-            //     System.out.print(eachNode.getCurrentWord() + " ");
-            // }
-            // System.out.println();
-
-            // System.out.println();
 
             previousExpandNodes.add(currentExpandNode);
             currentExpandNode = lifeNodes.poll();
