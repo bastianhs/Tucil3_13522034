@@ -13,8 +13,21 @@ abstract class Node implements Comparable<Node> {
         return currentWord;
     }
 
-    List<String> getPreviousWord() {
+    List<String> getPreviousWords() {
         return previousWords;
+    }
+
+    static int numOfCharDifference(String word1, String word2) {
+        if (word1.length() != word2.length()) {
+            throw new IllegalArgumentException("Both words must have the same length");
+        }
+        int count = 0;
+        for (int i = 0; i < word1.length(); ++i) {
+            if (word1.charAt(i) != word2.charAt(i)) {
+                ++count;
+            }
+        }
+        return count;
     }
 }
 
@@ -38,7 +51,7 @@ class NodeGBFS extends Node {
 
     NodeGBFS(String currentWord, List<String> previousWords, String endWord) {
         super(currentWord, previousWords);
-        diffFromCurrentToEndWord = WordList.numOfCharDifference(currentWord, endWord);
+        diffFromCurrentToEndWord = numOfCharDifference(currentWord, endWord);
     }
 
     @Override
@@ -56,7 +69,7 @@ class NodeAStar extends Node {
 
     NodeAStar(String currentWord, List<String> previousWords, String endWord) {
         super(currentWord, previousWords);
-        diffFromCurrentToEndWord = WordList.numOfCharDifference(currentWord, endWord);
+        diffFromCurrentToEndWord = numOfCharDifference(currentWord, endWord);
     }
 
     @Override

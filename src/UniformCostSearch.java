@@ -21,7 +21,7 @@ public class UniformCostSearch extends Searching {
             // System.out.print("Current word: ");
             // System.out.println(currentExpandNode.getCurrentWord());
             // System.out.print("Previous words: ");
-            // System.out.println(currentExpandNode.getPreviousWord());
+            // System.out.println(currentExpandNode.getPreviousWords());
 
             List<String> wordsDifferBy1Char = wordList.getWordsDifferBy1Char(currentExpandNode.getCurrentWord());
             wordsDifferBy1Char = wordsDifferBy1Char.stream().filter(this::isWordNotVisited).toList();
@@ -31,7 +31,7 @@ public class UniformCostSearch extends Searching {
             // System.out.println(wordsDifferBy1Char);
 
             for (String eachWord: wordsDifferBy1Char) {
-                List<String> newPreviousWords = new ArrayList<>(currentExpandNode.getPreviousWord());
+                List<String> newPreviousWords = new ArrayList<>(currentExpandNode.getPreviousWords());
                 newPreviousWords.add(currentExpandNode.getCurrentWord());
                 NodeUCS newNode = new NodeUCS(eachWord, newPreviousWords);
                 lifeNodes.add(newNode);
@@ -43,6 +43,7 @@ public class UniformCostSearch extends Searching {
             //     System.out.print(eachNode.getCurrentWord() + " ");
             // }
             // System.out.println();
+
             // System.out.println();
 
             previousExpandNodes.add(currentExpandNode);
@@ -52,7 +53,7 @@ public class UniformCostSearch extends Searching {
         if (currentExpandNode == null) {
             return new ArrayList<>();
         }
-        List<String> result = new ArrayList<>(currentExpandNode.getPreviousWord());
+        List<String> result = new ArrayList<>(currentExpandNode.getPreviousWords());
         result.add(currentExpandNode.getCurrentWord());
         return result;
     }

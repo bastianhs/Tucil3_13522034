@@ -3,10 +3,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 class WordList {
     private final List<String> words;
-    private List<String> wordsWithLengthN;
+    private Map<String, List<String>> wordToWordsDifferBy1Char;
 
     WordList(String path) throws IOException {
         words = new ArrayList<>();
@@ -15,30 +17,17 @@ class WordList {
         while ((line = reader.readLine()) != null) {
             words.add(line.toLowerCase());
         }
-
         reader.close();
     }
 
-    static int numOfCharDifference(String word1, String word2) throws IllegalArgumentException {
-        if (word1.length() != word2.length()) {
-            throw new IllegalArgumentException("Both words must have the same length");
-        }
-
-        int count = 0;
-        for (int i = 0; i < word1.length(); ++i) {
-            if (word1.charAt(i) != word2.charAt(i)) {
-                ++count;
-            }
-        }
-
-        return count;
+    boolean isWordNotExist(String word) {
+        return !words.contains(word);
     }
 
-    static boolean isWordsDifferBy1Char(String word1, String word2) throws IllegalArgumentException {
+    private static boolean isWordsDifferBy1Char(String word1, String word2) {
         if (word1.length() != word2.length()) {
             throw new IllegalArgumentException("Both words must have the same length");
         }
-
         int count = 0;
         int i = 0;
         while (i < word1.length() && count <= 1) {
@@ -48,34 +37,31 @@ class WordList {
 
             ++i;
         }
-
         return count == 1;
     }
 
-    private void generateWordsWithSameLength(String word) {
-        if (wordsWithLengthN == null) {
-            wordsWithLengthN = new ArrayList<>();
-            for (String eachWord: words) {
-                if (eachWord.length() == word.length()) {
-                    wordsWithLengthN.add(eachWord);
+    private List<String> generateWordsWithSameLength(int wordLength) {
+        return words.stream().filter(eachWord -> eachWord.length() == wordLength).toList();
+    }
+
+    void generateWordToWordsDifferBy1Char(int wordLength) {
+        List<String> wordsWithSameLength = generateWordsWithSameLength(wordLength);
+        wordToWordsDifferBy1Char = new HashMap<>();
+        for (String key: wordsWithSameLength) {
+            List<String> value = new ArrayList<>();
+            for (String anotherWord: wordsWithSameLength) {
+                if (isWordsDifferBy1Char(key, anotherWord)) {
+                    value.add(anotherWord);
                 }
             }
+            wordToWordsDifferBy1Char.put(key, value);
         }
     }
 
     List<String> getWordsDifferBy1Char(String word) {
-        generateWordsWithSameLength(word);
-        List<String> result = new ArrayList<>();
-        for (String eachWord: wordsWithLengthN) {
-            if (isWordsDifferBy1Char(word, eachWord)) {
-                result.add(eachWord);
-            }
+        if (wordToWordsDifferBy1Char == null) {
+            throw new IllegalStateException("Words differ by 1 character must be generated first");
         }
-
-        return result;
-    }
-
-    boolean isWordNotExist(String word) {
-        return !words.contains(word);
+        return wordToWordsDifferBy1Char.get(word);
     }
 }

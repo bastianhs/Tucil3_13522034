@@ -13,7 +13,6 @@ abstract class Searching {
                 return false;
             }
         }
-
         return true;
     }
 

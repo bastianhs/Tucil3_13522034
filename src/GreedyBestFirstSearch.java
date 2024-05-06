@@ -18,20 +18,20 @@ public class GreedyBestFirstSearch extends Searching {
 
             // print the currentExpandNode
             // System.out.println("Expand Node");
-            // System.out.println("Current word:");
+            // System.out.print("Current word: ");
             // System.out.println(currentExpandNode.getCurrentWord());
-            // System.out.println("Previous words:");
-            // System.out.println(currentExpandNode.getPreviousWord());
+            // System.out.print("Previous words: ");
+            // System.out.println(currentExpandNode.getPreviousWords());
 
             List<String> wordsDifferBy1Char = wordList.getWordsDifferBy1Char(currentExpandNode.getCurrentWord());
             wordsDifferBy1Char = wordsDifferBy1Char.stream().filter(this::isWordNotVisited).toList();
 
             // print the wordsDifferBy1Char
-            // System.out.println("Words differ by 1 char:");
+            // System.out.print("Words differ by 1 char: ");
             // System.out.println(wordsDifferBy1Char);
 
             for (String eachWord: wordsDifferBy1Char) {
-                List<String> newPreviousWords = new ArrayList<>(currentExpandNode.getPreviousWord());
+                List<String> newPreviousWords = new ArrayList<>(currentExpandNode.getPreviousWords());
                 newPreviousWords.add(currentExpandNode.getCurrentWord());
                 NodeGBFS newNode = new NodeGBFS(eachWord, newPreviousWords, endWord);
                 lifeNodes.add(newNode);
@@ -43,6 +43,7 @@ public class GreedyBestFirstSearch extends Searching {
             //     System.out.print(eachNode.getCurrentWord() + " ");
             // }
             // System.out.println();
+
             // System.out.println();
 
             previousExpandNodes.add(currentExpandNode);
@@ -52,7 +53,7 @@ public class GreedyBestFirstSearch extends Searching {
         if (currentExpandNode == null) {
             return new ArrayList<>();
         }
-        List<String> result = new ArrayList<>(currentExpandNode.getPreviousWord());
+        List<String> result = new ArrayList<>(currentExpandNode.getPreviousWords());
         result.add(currentExpandNode.getCurrentWord());
         return result;
     }
