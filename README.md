@@ -51,7 +51,7 @@ Tutorial on how to install OpenJDK JDK can be found [here](https://www.freecodec
 6. The result will be displayed on the right side.  
    The result is also displayed in the terminal.  
    Note:  
-   If the result is not displayed, it means there is no path from the start word to the end word.
+   If the result is not displayed in the GUI, it means there is no path from the start word to the end word.
 
 ## Author
 Bastian H. Suryapratama  
